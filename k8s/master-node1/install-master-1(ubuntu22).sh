@@ -17,14 +17,15 @@ sudo apt install -y apt-transport-https ca-certificates curl software-properties
 # Install Docker
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/docker-archive-keyring.gpg arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt install docker.io -y
 
-sudo sed -i 's/ SystemdCgroup = false/ SystemdCgroup = true/' /etc/containerd/config.toml
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 
-
+sudo apt update
+sudo apt-get install -y containerd.io
+# sudo sed -i 's/ SystemdCgroup = false/ SystemdCgroup = true/' /etc/containerd/config.toml
 
 # Check Docker status
-sudo systemctl status docker
+# sudo systemctl status docker
 
 # Add Kubernetes repository
 sudo tee /etc/apt/sources.list.d/kubernetes.list <<EOF
@@ -34,13 +35,13 @@ EOF
 # Add Kubernetes GPG key
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/kubernetes-archive-keyring.gpg add -
 echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
-sudo apt-get update
 
 # Install Kubernetes components
 sudo apt update
+
 sudo apt install -y kubelet kubectl kubeadm
-# Auto update
-sudo apt-mark hold kubeadm kubelet kubectl
+
+
 # Disable swap
 sudo swapoff -a
 sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
@@ -67,8 +68,8 @@ sudo sysctl --system
 sudo kubeadm init --pod-network-cidr=10.10.0.0/16
 
 # Enable kubelet service
-# sudo systemctl enable kubelet
-# sudo systemctl start kubelet
+sudo systemctl enable kubelet
+sudo systemctl start kubelet
 # sudo systemctl status kubelet
 
 # Create kubeconfig directory cluser
@@ -78,7 +79,6 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 # Deploy Calico network plugin - cluster
 kubectl apply -f https://docs.projectcalico.org/v3.25/manifests/calico.yaml
-
 
 # Check cluster status
 sudo kubectl get nodes
