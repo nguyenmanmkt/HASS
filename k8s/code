@@ -1,0 +1,8 @@
+
+sudo systemctl status kubelet
+
+
+
+
+sudo kubeadm reset
+sudo rm -rf /etc/kubernetes
