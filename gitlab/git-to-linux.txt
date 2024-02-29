@@ -1,1 +1,6 @@
 git clone https://github.com/nguyenmanmkt/HASS
+
+git add .
+git commit -m "nd"
+git push origin main
+git status
