@@ -17,6 +17,7 @@ sudo apt install -y apt-transport-https ca-certificates curl software-properties
 # Disable swap
 sudo swapoff -a
 sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+sudo rm /swap.img
 
 echo "overlay" | sudo tee -a /etc/modules-load.d/k8s.conf
 echo "br_netfilter" | sudo tee -a /etc/modules-load.d/k8s.conf
@@ -42,7 +43,8 @@ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
 echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 sudo apt-get update
 sudo apt-get install -y kubelet kubeadm kubectl
-# sudo apt-mark hold kubelet kubeadm kubectl
+
+sudo apt-mark hold kubelet kubeadm kubectl
 
 # Initialize Kubernetes master
 # sudo kubeadm init --pod-network-cidr=10.10.0.0/16
