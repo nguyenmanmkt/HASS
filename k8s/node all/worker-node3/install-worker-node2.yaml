@@ -65,7 +65,7 @@ sudo yum install -y kubelet kubectl kubeadm
 # Enable kubelet service
 sudo systemctl enable kubelet && sudo systemctl status kubelet
 
-# Create kubeconfig directory cluser
+# Create kubeconfig directory cluserping
 # mkdir -p $HOME/.kube
 # sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config && sudo chown $(id -u):$(id -g) $HOME/.kube/config
 

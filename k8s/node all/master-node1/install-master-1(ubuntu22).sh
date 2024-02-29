@@ -59,6 +59,7 @@ kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 # Print join command for worker nodes
 echo "Cluster initialization complete. Save the following command to join worker nodes:"
 sudo kubeadm token create --print-join-command
+kubectl get nodes
 
 # For Worker Nodes
 # sudo ufw allow 10251/tcp
