@@ -1,0 +1,12 @@
+git clone https://github.com/nguyenmanmkt/HASS
+
+git config --global user.name "nguyenmanmkt"
+git config --global user.email "nguyenmanmkt@gmail.com"
+
+git config --global --get user.name
+git config --global --get user.email
+
+git add .  #or git add gitlab/
+git commit -m "nd"
+git push origin main   # git push
+git status
