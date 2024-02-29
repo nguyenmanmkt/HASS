@@ -18,23 +18,18 @@ sudo apt install -y apt-transport-https ca-certificates curl software-properties
 sudo swapoff -a
 sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 
-# Load Kernel Modules
-cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
-overlay
-br_netfilter
-EOF
+echo "overlay" | sudo tee -a /etc/modules-load.d/k8s.conf
+echo "br_netfilter" | sudo tee -a /etc/modules-load.d/k8s.conf
 
 sudo modprobe overlay
 sudo modprobe br_netfilter
 
-# Configure sysctl
-cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
-net.bridge.bridge-nf-call-iptables  = 1
-net.bridge.bridge-nf-call-ip6tables = 1
-net.ipv4.ip_forward                 = 1
-EOF
+echo "net.bridge.bridge-nf-call-iptables = 1" | sudo tee /etc/sysctl.d/k8s.conf
+echo "net.bridge.bridge-nf-call-ip6tables = 1" | sudo tee -a /etc/sysctl.d/k8s.conf
+echo "net.ipv4.ip_forward = 1" | sudo tee -a /etc/sysctl.d/k8s.conf
 
 sudo sysctl --system
+
 
 # Update and install Docker
 sudo apt update
@@ -48,7 +43,7 @@ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
 echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 sudo apt-get update
 sudo apt-get install -y kubelet kubeadm kubectl
-sudo apt-mark hold kubelet kubeadm kubectl
+# sudo apt-mark hold kubelet kubeadm kubectl
 
 # Initialize Kubernetes master
 sudo kubeadm init --pod-network-cidr=10.10.0.0/16

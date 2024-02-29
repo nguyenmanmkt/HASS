@@ -35,7 +35,7 @@ sudo yum install -y kubelet kubectl kubeadm
 # Disable swap
 sudo sed -i '/swap/d' /etc/fstab
 sudo swapoff -a
-sudo rm /swap.img
+
 
 # Disable SELinux
 sudo setenforce 0
