@@ -2,7 +2,7 @@
 sudo systemctl status kubelet
 
 
-
+kubectl get pods --all-namespaces
 
 sudo kubeadm reset
 sudo rm -rf /etc/kubernetes
