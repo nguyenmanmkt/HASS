@@ -9,4 +9,7 @@ git config --global --get user.email
 git add .  #or git add gitlab/
 git commit -m "noi dung edit"
 git push origin main   # git push
+
+git pull   # update from github
+ 
 git status
