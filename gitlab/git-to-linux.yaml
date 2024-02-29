@@ -7,6 +7,6 @@ git config --global --get user.name
 git config --global --get user.email
 
 git add .  #or git add gitlab/
-git commit -m "nd"
+git commit -m "noi dung edit"
 git push origin main   # git push
 git status
