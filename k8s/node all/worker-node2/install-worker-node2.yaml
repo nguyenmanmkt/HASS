@@ -9,7 +9,7 @@ echo "192.168.200.235 worker-node1 worker1" | sudo tee -a /etc/hosts
 echo "192.168.200.236 worker-node2 worker2" | sudo tee -a /etc/hosts
 echo "192.168.200.237 worker-node3 worker3" | sudo tee -a /etc/hosts
 
-worker-node2 copy# Install dependencies
+# Install dependencies
 sudo yum install -y nano
 sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 sudo yum install -y yum-utils containerd.io && rm -I /etc/containerd/config.toml
